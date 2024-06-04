@@ -1,0 +1,13 @@
+# Ignore all .o files
+*.o
+
+# Ignore editor files
+*.swp
+*.swo
+
+# Ignore system files
+.DS_Store
+
+# Ignore build directories
+/build
+
