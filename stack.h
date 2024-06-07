@@ -3,6 +3,7 @@
 
 #define STACK_SIZE 10
 #include <stdexcept>
+#include <iostream>
 
 class Stack {
 private:
