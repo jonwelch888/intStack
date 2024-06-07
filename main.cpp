@@ -1,35 +1,75 @@
+/* ***********************************************************
+Name: Jon Welch
+Assignment: 4
+Purpose of the file: This source file contains the main function
+to test the Stack class.
+************************************************************* */
+
 #include "main.h"
 
-int main() {
+int main()
+{
+    /* ***********************************************************
+    this main function serves as the entry point for the program. It 
+    tests the functionality of the Stack class by performing various 
+    operations, such as pushing, popping, peeking, and checking for 
+    overflow and underflow conditions.
+
+    Operations performed:
+    1. pushing elements onto the stack until it is full.
+    2. attempting to push another element to test stack overflow.
+    3. peeking and popping all elements from the stack.
+    4. attempting to pop from an empty stack to test stack underflow.
+    5. additional tests for pushing, peeking, and popping a single element.
+    ************************************************************* */
     Stack stack;
 
-    try {
-        // Test pushing elements to the stack
-        for (int i = 0; i < STACK_SIZE; ++i) {
+    try
+    {
+        for (int i = 0; i < STACK_SIZE; i++)
+        {
             stack.push(i);
             std::cout << "Pushed: " << i << std::endl;
         }
-
-        // Test stack overflow
-        try {
+        try
+        {
             stack.push(100);
-        } catch (const std::overflow_error& e) {
+        }
+        catch (const std::overflow_error& e)
+        {
             std::cerr << "Expected overflow error: " << e.what() << std::endl;
         }
-
-        // Test peeking and popping all elements
-        while (!stack.isEmpty()) {
+        while (!stack.isEmpty())
+        {
             std::cout << "Peek: " << stack.peek() << ", Pop: " << stack.pop() << std::endl;
         }
-
-        // Test stack underflow
-        try {
+        
+        try
+        {
             stack.pop();
-        } catch (const std::underflow_error& e) {
+        }
+        catch(const std::underflow_error& e)
+        {
+            std::cerr <<"expected underflow error: "<<e.what()<<std::endl;
+        }
+
+        stack.push(42);// extra tests 
+        std::cout<<"pushed: 42"<<::endl;
+        std::cout<<"Peek: "<<stack.peek()<<",Pop: "<<::endl;
+
+        try
+        {
+            std::cout<<"pop from empty stack: ";
+            stack.pop();
+        }
+        catch (const std::underflow_error& e)
+        {
             std::cerr << "Expected underflow error: " << e.what() << std::endl;
         }
 
-    } catch (const std::exception& e) {
+    }
+    catch (const std::exception& e)
+    {
         std::cerr << e.what() << std::endl;
     }
 
