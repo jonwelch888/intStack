@@ -1,6 +1,8 @@
 
 #include "stack.h"
 
+Stack::Stack() : top(-1){}
+
 void Stack::push(int value) {
     if (top >= STACK_SIZE - 1) {
         throw std::overflow_error("Stack 
