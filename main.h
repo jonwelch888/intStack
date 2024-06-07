@@ -12,5 +12,7 @@ headers for main.cpp.
 #include "stack.h"
 #include <iostream>
 #include <stdexcept>
+#include <cstdlib>  // For rand() and srand()
+#include <ctime>    // For time()
 
 #endif // MAIN_H
