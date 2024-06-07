@@ -70,40 +70,38 @@ int main()
         }
         //random test
         std::cout<<"\n ---- random test"<<std::endl;
+        int pushCount = 0;
+        int popCount = 0;
         for(int i=0; i<100; i++)
         {
             int test = (rand()%2); // random choose push or pop;
-            if(test ==0 && stack.isEmpty())
-            {
-                continue; // skip pop test if stack is empty
-            }
-            if(test ==0)
+            if(test ==0 && pushCount < STACK_SIZE)
             {
                 try
                 {
                     int value = (rand()%100);
                     stack.push(value);
                     std::cout<<"random push"<<value<<std::endl;
+                    pushCount++;
                 }
                 catch(const std::overflow_error& e)
                 {
                     std::cerr<<"expeceted overflow error during random test: "<< e.what() <<std::endl;
                 }
-            }   
-            else
+            }
+            else if(test == 1 && popCount < pushCount)
             {
                 try
                 {
                     int value = stack.pop();
                     std::cout << "randomly popped: " << value << std::endl;
+                    popCount++;
                 }
                 catch (const std::underflow_error& e)
-                    {
-                        std::cerr << "Expected underflow error during random operation: " << e.what() << std::endl;
-                    }
+                {
+                    std::cerr << "Expected underflow error during random operation: " << e.what() << std::endl;
+                }
             }
-            
-
         }    
     }
     catch (const std::exception& e)
