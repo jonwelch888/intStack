@@ -96,13 +96,25 @@ int main()
             {
                 case 1:
                 case 2:
-                    if (!stack.push(value))
+                    if (successfulPushes < STACK_SIZE)
                     {
-                        overflowErrors++;
+                        // Attempt to push an element
+                        if (!stack.push(value))
+                        {
+                            overflowErrors++;
+                        }
+                        else
+                        {
+                            successfulPushes++;
+                        }
                     }
                     else
                     {
-                        successfulPushes++;
+                        // Force overflow test
+                        if (!stack.push(value))
+                        {
+                            overflowErrors++;
+                        }
                     }
                     break;
                 case 3:
@@ -140,7 +152,7 @@ int main()
         }
 
         // Print
-        std::cout << "\n---- Test Summary ----test 4-" << std::endl;
+        std::cout << "\n---- Test Summary ----test 5-" << std::endl;
         std::cout << "Successful pushes: " << successfulPushes << std::endl;
         std::cout << "Overflow errors: " << overflowErrors << std::endl;
         std::cout << "Successful pops: " << successfulPops << std::endl;
