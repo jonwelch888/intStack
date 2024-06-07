@@ -9,7 +9,7 @@ to test the Stack class.
 
 int main()
 {
-    /* ***********************************************************
+    /* ********************************************************************************
     this main function serves as the entry point for the program. It 
     tests the functionality of the Stack class by performing various 
     operations, such as pushing, popping, peeking, and checking for 
@@ -22,7 +22,8 @@ int main()
     4. attempting to pop from an empty stack to test stack underflow.
     5. additional tests for pushing, peeking, and popping a single element.
     6. randomized tests to ensure robustness.
-    ************************************************************* */
+    @note: attempting to test the minimum number of tests; [3 (states) * 4 (operations)= 12 tests] 
+    *********************************************************************************** */
     Stack stack;
     srand(static_cast<unsigned int>(time(0)));
 
