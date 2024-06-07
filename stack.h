@@ -10,6 +10,9 @@ declaration of the Stack class.
 #define STACK_H
 
 #define STACK_SIZE 10
+#define CHOICES 6
+#define RMULTIPLIER 10
+#define HUND 100
 #include <stdexcept>
 
 
