@@ -2,6 +2,7 @@
 #define STACK_H
 
 #define STACK_SIZE 10
+#include <stdexcept>
 
 class Stack {
 private:
