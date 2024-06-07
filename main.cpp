@@ -27,83 +27,130 @@ int main()
     Stack stack;
     srand(static_cast<unsigned int>(time(0)));
 
+    int successfulPushes = 0;
+    int successfulPops = 0;
+    int overflowErrors = 0;
+    int underflowErrors = 0;
+    int peekSuccesses = 0;
+
     try
     {
         for (int i = 0; i < STACK_SIZE; i++)
         {
             stack.push(i);
-            std::cout << "Pushed: " << i << std::endl;
+            successfulPushes++;
         }
+
+        // Test stack overflow
         try
         {
             stack.push(100);
         }
         catch (const std::overflow_error& e)
         {
-            std::cerr << "Expected overflow error: " << e.what() << std::endl;
+            overflowErrors++;
         }
+
+        // Test peeking and popping all elements
         while (!stack.isEmpty())
         {
-            std::cout << "Peek: " << stack.peek() << ", Pop: " << stack.pop() << std::endl;
-        }
-        
-        try
-        {
+            stack.peek();
+            peekSuccesses++;
             stack.pop();
-        }
-        catch(const std::underflow_error& e)
-        {
-            std::cerr <<"expected underflow error: "<<e.what()<<std::endl;
+            successfulPops++;
         }
 
-        stack.push(42);// extra tests 
-        std::cout<<"pushed: 42"<<std::endl;
-        std::cout<<"Peek: "<<stack.peek()<<", Pop: "<<stack.pop()<<std::endl;
-
+        // Test stack underflow
         try
         {
-            std::cout<<"pop from empty stack: ";
             stack.pop();
         }
         catch (const std::underflow_error& e)
         {
-            std::cerr << "Expected underflow error: " << e.what() << std::endl;
+            underflowErrors++;
         }
-        //random test
-        std::cout<<"\n ---- random test"<<std::endl;
-        int pushCount = 0;
-        int popCount = 0;
-        for(int i=0; i<100; i++)
+
+        // Additional tests
+        stack.push(42); // Extra tests 
+        successfulPushes++;
+        stack.peek();
+        peekSuccesses++;
+        stack.pop();
+        successfulPops++;
+
+        try
         {
-            int test = (rand()%2); // random choose push or pop;
-            if(test ==0 && pushCount < STACK_SIZE)
+            stack.pop();
+        }
+        catch (const std::underflow_error& e)
+        {
+            underflowErrors++;
+        }
+
+        // Randomized test using switch statement
+        for (int i = 0; i < STACK_SIZE * RMULTIPLIER; i++)
+        {
+            int choice = rand() % CHOICES + 1;
+            switch (choice)
             {
-                try
-                {
-                    int value = (rand()%100);
-                    stack.push(value);
-                    std::cout<<"random push"<<value<<std::endl;
-                    pushCount++;
-                }
-                catch(const std::overflow_error& e)
-                {
-                    std::cerr<<"expeceted overflow error during random test: "<< e.what() <<std::endl;
-                }
+                case 1:
+                case 2:
+                    if (successfulPushes < STACK_SIZE)
+                    {
+                        try
+                        {
+                            int value = rand() % HUND;
+                            stack.push(value);
+                            successfulPushes++;
+                        }
+                        catch (const std::overflow_error& e)
+                        {
+                            overflowErrors++;
+                        }
+                    }
+                    break;
+                case 3:
+                case 4:
+                    if (!stack.isEmpty())
+                    {
+                        try
+                        {
+                            stack.pop();
+                            successfulPops++;
+                        }
+                        catch (const std::underflow_error& e)
+                        {
+                            underflowErrors++;
+                        }
+                    }
+                    break;
+                case 5:
+                    if (!stack.isEmpty())
+                    {
+                        try
+                        {
+                            stack.peek();
+                            peekSuccesses++;
+                        }
+                        catch (const std::underflow_error& e)
+                        {
+                            underflowErrors++;
+                        }
+                    }
+                    break;
+                case 6:
+                    break;
             }
-            else if(test == 1 && popCount < pushCount)
-            {
-                try
-                {
-                    int value = stack.pop();
-                    std::cout << "randomly popped: " << value << std::endl;
-                    popCount++;
-                }
-                catch (const std::underflow_error& e)
-                {
-                    std::cerr << "Expected underflow error during random operation: " << e.what() << std::endl;
-                }
-            }
-        }    
+        }
+
+        // Print
+        std::cout << "\n---- Test Summary ----" << std::endl;
+        std::cout << "Successful pushes: " << successfulPushes << std::endl;
+        std::cout << "Overflow errors: " << overflowErrors << std::endl;
+        std::cout << "Successful pops: " << successfulPops << std::endl;
+        std::cout << "Underflow errors: " << underflowErrors << std::endl;
+        std::cout << "Peek successes: " << peekSuccesses << std::endl;
+
     }
     catch (const std::exception& e)
     {
@@ -112,4 +159,3 @@ int main()
 
     return 0;
 }
-
