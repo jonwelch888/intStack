@@ -75,7 +75,7 @@ int main()
             int test = (rand()%2); // random choose push or pop;
             if(test ==0 && stack.isEmpty())
             {
-                cobtinue; // skip pop test if stack is empty
+                continue; // skip pop test if stack is empty
             }
             if(test ==0)
             {
@@ -89,21 +89,23 @@ int main()
                 {
                     std::cerr<<"expeceted overflow error during random test: "<< e.what() <<std::endl;
                 }
+            }   
             else
             {
-                    try
-                    {
-                        int value = stack.pop();
-                        std::cout << "randomly popped: " << value << std::endl;
-                    }
-                    catch (const std::underflow_error& e)
+                try
+                {
+                    int value = stack.pop();
+                    std::cout << "randomly popped: " << value << std::endl;
+                }
+                catch (const std::underflow_error& e)
                     {
                         std::cerr << "Expected underflow error during random operation: " << e.what() << std::endl;
                     }
             }
-            }
+            
 
         }    
+    }
     catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
