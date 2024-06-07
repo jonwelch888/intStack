@@ -12,21 +12,24 @@ Default constructor for Stack class. Initializes the top index to -1.
 ************************************************************* */
 Stack::Stack() : top(-1){}
 
-void Stack::push(int value)
+bool Stack::push(int value)
 {
     /* *******************************************************************
     This function pushes a value onto the stack.
 
     @param (int) value : Value to be pushed onto the stack.
 
-    @exception std::overflow_error : Thrown when attempting to push onto a full stack.
+    @return (bool) : True if the value is successfully pushed, false if the stack is full.
     ********************************************************************** */
-    if (top >= STACK_SIZE - 1)
+    bool pushed = false;
+    if (top < STACK_SIZE - 1)
     {
-        throw std::overflow_error("Stack overflow");
+        arr[++top] = value;
+        pushed = true;
     }
-    arr[++top] = value;
+    return pushed;
 }
+
 
 int Stack::pop()
 {
