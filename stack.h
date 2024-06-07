@@ -31,17 +31,22 @@ class Stack
     int top;
 
     public:
-    /**********************
+    /* *********************
     constructors/destructor
-    ***********************/
+    ********************** */
     Stack();
-    /**********************
-    Stack operations
-    ***********************/
-    void push(int value);
+    /* *********************
+    Accessors
+    ********************** */
     int pop();
     int peek();
     bool isEmpty();
+
+    /**********************
+    Mutators
+    ***********************/
+    bool push(int value);
+
 };
 
 #endif // STACK_H
