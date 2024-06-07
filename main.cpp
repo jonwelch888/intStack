@@ -21,8 +21,10 @@ int main()
     3. peeking and popping all elements from the stack.
     4. attempting to pop from an empty stack to test stack underflow.
     5. additional tests for pushing, peeking, and popping a single element.
+    6. randomized tests to ensure robustness.
     ************************************************************* */
     Stack stack;
+    srand(static_cast<unsigned int>(time(0)));
 
     try
     {
@@ -66,8 +68,42 @@ int main()
         {
             std::cerr << "Expected underflow error: " << e.what() << std::endl;
         }
+        //random test
+        std::cout<<"\n ---- random test"<<std::endl;
+        for(int i=0; i<100; i++)
+        {
+            int test = (rand()%2); // random choose push or pop;
+            if(test ==0 && stack.isEmpty())
+            {
+                cobtinue; // skip pop test if stack is empty
+            }
+            if(test ==0)
+            {
+                try
+                {
+                    int value = (rand()%100);
+                    stack.push(value);
+                    std::cout<<"random push"<<value<<std::endl;
+                }
+                catch(const std::overflow_error& e)
+                {
+                    std::cerr<<"expeceted overflow error during random test: "<< e.what() <<std::endl;
+                }
+            else
+            {
+                    try
+                    {
+                        int value = stack.pop();
+                        std::cout << "randomly popped: " << value << std::endl;
+                    }
+                    catch (const std::underflow_error& e)
+                    {
+                        std::cerr << "Expected underflow error during random operation: " << e.what() << std::endl;
+                    }
+            }
+            }
 
-    }
+        }    
     catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
