@@ -90,12 +90,12 @@ int main()
         // Randomized test using switch statement
         for (int i = 0; i < (STACK_SIZE * RMULTIPLIER); i++)
         {
+            int value = rand() % HUND;
             int choice = rand() % CHOICES + 1;
             switch (choice)
             {
                 case 1:
                 case 2:
-                    int value = (rand() % HUND);
                     if (!stack.push(value))
                     {
                         overflowErrors++;
