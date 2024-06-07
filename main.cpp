@@ -88,7 +88,7 @@ int main()
         }
 
         // Randomized test using switch statement
-        for (int i = 0; i < STACK_SIZE * RMULTIPLIER; i++)
+        for (int i = 0; i < (STACK_SIZE * RMULTIPLIER); i++)
         {
             int choice = rand() % CHOICES + 1;
             switch (choice)
