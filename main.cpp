@@ -144,14 +144,12 @@ int main()
         }
 
         // Print
-        std::cout << "\n---- Test Summary ----" << std::endl;
+        std::cout << "\n---- Test Summary ----test 3-" << std::endl;
         std::cout << "Successful pushes: " << successfulPushes << std::endl;
         std::cout << "Overflow errors: " << overflowErrors << std::endl;
         std::cout << "Successful pops: " << successfulPops << std::endl;
         std::cout << "Underflow errors: " << underflowErrors << std::endl;
         std::cout << "Peek successes: " << peekSuccesses << std::endl;
-
-        std::cout<<"test 3 test test";
     }
     catch (const std::exception& e)
     {
