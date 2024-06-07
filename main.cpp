@@ -108,6 +108,7 @@ int main()
     {
         std::cerr << e.what() << std::endl;
     }
+    std::cout<<"test 2 test test test ";
 
     return 0;
 }
