@@ -151,12 +151,12 @@ int main()
         std::cout << "Underflow errors: " << underflowErrors << std::endl;
         std::cout << "Peek successes: " << peekSuccesses << std::endl;
 
+        std::cout<<"test 3 test test";
     }
     catch (const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
     }
-
-    std::cout<<"test 3 test test";
+    
     return 0;
 }
