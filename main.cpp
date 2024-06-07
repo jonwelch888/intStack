@@ -157,5 +157,6 @@ int main()
         std::cerr << e.what() << std::endl;
     }
 
+    std::cout<<"test 3 test test";
     return 0;
 }
