@@ -54,8 +54,8 @@ int main()
         }
 
         stack.push(42);// extra tests 
-        std::cout<<"pushed: 42"<<::endl;
-        std::cout<<"Peek: "<<stack.peek()<<",Pop: "<<::endl;
+        std::cout<<"pushed: 42"<<std::endl;
+        std::cout<<"Peek: "<<stack.peek()<<",Pop: "<<std::endl;
 
         try
         {
