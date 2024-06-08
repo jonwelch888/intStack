@@ -73,7 +73,3 @@ bool Stack::isEmpty()
     return top == -1;
 }
 
-int Stack::size()
-{  // New method to return the number of elements in the stack
-    return top + 1;
-}
