@@ -27,122 +27,27 @@ int main()
     Stack stack;
     srand(static_cast<unsigned int>(time(0)));
 
-    int successfulPushes = 0;
-    int successfulPops = 0;
-    int overflowErrors = 0;
-    int underflowErrors = 0;
-    int peekSuccesses = 0;
+    // Testing all operations when the stack is initially empty
+    std::cout << "Testing Empty State:\n";
+    try { stack.pop(); } catch (const std::exception& e) { std::cout << "Pop on empty: " << e.what() << '\n'; }
+    try { stack.peek(); } catch (const std::exception& e) { std::cout << "Peek on empty: " << e.what() << '\n'; }
+    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
+    stack.push(rand() % 100); // Pushing one element to change state
 
-    try
-    {
-        for (int i = 0; i < STACK_SIZE; i++)
-        {
-            stack.push(i);
-            successfulPushes++;
-        }
-        
-        // Test stack overflow
-        bool overflowAttempt = stack.push(100);
-        if (!overflowAttempt)
-        {
-            overflowErrors++;
-        }
+    // Testing all operations when the stack is partially full
+    std::cout << "\nTesting Partially Full State:\n";
+    stack.push(rand() % 100);
+    std::cout << "Peek: " << stack.peek() << '\n';
+    std::cout << "Pop: " << stack.pop() << '\n';
+    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
 
+    // Fill the stack to capacity to test the full state
+    while (stack.push(rand() % 100)); // This loop will exit when push returns false (stack is full)
+    std::cout << "\nTesting Full State:\n";
+    try { stack.push(rand() % 100); } catch (const std::exception& e) { std::cout << "Push on full: " << e.what() << '\n'; }
+    std::cout << "Peek: " << stack.peek() << '\n';
+    std::cout << "Pop: " << stack.pop() << '\n';
+    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
 
-        // Test peeking and popping all elements
-        while (!stack.isEmpty())
-        {
-            stack.peek();
-            peekSuccesses++;
-            stack.pop();
-            successfulPops++;
-        }
-
-        // Test stack underflow
-        try
-        {
-            stack.pop();
-        }
-        catch (const std::underflow_error& e)
-        {
-            underflowErrors++;
-        }
-
-        // Additional tests
-        stack.push(42); // Extra tests 
-        successfulPushes++;
-        stack.peek();
-        peekSuccesses++;
-        stack.pop();
-        successfulPops++;
-
-        try
-        {
-            stack.pop();
-        }
-        catch (const std::underflow_error& e)
-        {
-            underflowErrors++;
-        }
-
-        // Randomized test using switch statement
-        for (int i = 0; i < (STACK_SIZE * RMULTIPLIER); i++)
-        {
-            int choice = rand() % CHOICES + 1;
-            switch (choice)
-            {
-                case 1:
-                case 2:
-                   if (stack.push(rand() % HUND))
-                   {
-                       successfulPushes++;
-                   }
-                   else
-                   {
-                       overflowErrors++;
-                   }
-
-                    break;
-                case 3:
-                case 4:
-                    if (!stack.isEmpty())
-                    {
-                        stack.pop();
-                        successfulPops++;
-                    }
-                    else
-                    {
-                        underflowErrors++;
-                    }
-                    break;
-                case 5:
-                    if (!stack.isEmpty())
-                    {
-                        stack.peek();
-                        peekSuccesses++;
-                    }
-                    else
-                    {
-                        underflowErrors++;
-                    }
-                    break;
-                case 6:
-                    break;
-            }
-        }
-
-        // Print
-        std::cout << "\n---- Test Summary ----test 7-" << std::endl;
-        std::cout << "Successful pushes: " << successfulPushes << std::endl;
-        std::cout << "Overflow errors: " << overflowErrors << std::endl;
-        std::cout << "Successful pops: " << successfulPops << std::endl;
-        std::cout << "Underflow errors: " << underflowErrors << std::endl;
-        std::cout << "Peek successes: " << peekSuccesses << std::endl;
-    }
-    catch (const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
-    
     return 0;
 }
