@@ -27,27 +27,52 @@ int main()
     Stack stack;
     srand(static_cast<unsigned int>(time(0)));
 
-    // Testing all operations when the stack is initially empty
-    std::cout << "Testing Empty State:\n";
-    try { stack.pop(); } catch (const std::exception& e) { std::cout << "Pop on empty: " << e.what() << '\n'; }
-    try { stack.peek(); } catch (const std::exception& e) { std::cout << "Peek on empty: " << e.what() << '\n'; }
-    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
-    stack.push(rand() % 100); // Pushing one element to change state
+    const int MAX_OPERATIONS = 100;
+    int operation;
 
-    // Testing all operations when the stack is partially full
-    std::cout << "\nTesting Partially Full State:\n";
-    stack.push(rand() % 100);
-    std::cout << "Peek: " << stack.peek() << '\n';
-    std::cout << "Pop: " << stack.pop() << '\n';
-    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
+    for (int i = 0; i < MAX_OPERATIONS; i++) {
+        int stackSize = stack.size();  // Assuming 'size' is a method that returns the current number of elements
+        double fullnessRatio = double(stackSize) / STACK_SIZE;
 
-    // Fill the stack to capacity to test the full state
-    while (stack.push(rand() % 100)); // This loop will exit when push returns false (stack is full)
-    std::cout << "\nTesting Full State:\n";
-    try { stack.push(rand() % 100); } catch (const std::exception& e) { std::cout << "Push on full: " << e.what() << '\n'; }
-    std::cout << "Peek: " << stack.peek() << '\n';
-    std::cout << "Pop: " << stack.pop() << '\n';
-    std::cout << "IsEmpty: " << (stack.isEmpty() ? "True" : "False") << '\n';
+        // Define operation probabilities based on stack fullness
+        double pushProb = 1.0 - fullnessRatio;  // Higher chance to push if not full
+        double popProb = fullnessRatio;         // Higher chance to pop if not empty
+        double peekProb = 0.1;                  // Constant small chance to peek
+
+        // Normalize probabilities to sum to 1
+        double totalProb = pushProb + popProb + peekProb;
+        pushProb /= totalProb;
+        popProb /= totalProb;
+        peekProb /= totalProb;
+
+        // Randomly decide the next operation
+        double randValue = (double)rand() / RAND_MAX;
+
+        if (randValue < pushProb) {
+            // Try to push a random value
+            if (!stack.push(rand() % 100)) {
+                std::cout << "Failed to push: Stack is full\n";
+            } else {
+                std::cout << "Pushed a value successfully\n";
+            }
+        } else if (randValue < pushProb + popProb) {
+            // Try to pop
+            try {
+                int poppedValue = stack.pop();
+                std::cout << "Popped: " << poppedValue << "\n";
+            } catch (const std::underflow_error& e) {
+                std::cout << "Failed to pop: " << e.what() << "\n";
+            }
+        } else {
+            // Try to peek
+            try {
+                int peekedValue = stack.peek();
+                std::cout << "Peeked: " << peekedValue << "\n";
+            } catch (const std::underflow_error& e) {
+                std::cout << "Failed to peek: " << e.what() << "\n";
+            }
+        }
+    }
 
     return 0;
 }
