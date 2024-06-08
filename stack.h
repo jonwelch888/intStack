@@ -47,6 +47,8 @@ class Stack
     ***********************/
     bool push(int value);
 
+    int size();
+
 };
 
 #endif // STACK_H
