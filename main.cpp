@@ -132,7 +132,7 @@ int main()
         }
 
         // Print
-        std::cout << "\n---- Test Summary ----test 8-" << std::endl;
+        std::cout << "\n---- Test Summary -----" << std::endl;
         std::cout << "Successful pushes: " << successfulPushes << std::endl;
         std::cout << "Overflow errors: " << overflowErrors << std::endl;
         std::cout << "Successful pops: " << successfulPops << std::endl;
