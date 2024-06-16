@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 2436 data structures
 a simple int stack, [6-9-24];
 # Integer Stack Assignment
@@ -26,3 +27,6 @@ commit".
 Refer to the project specifications and best 
 practices for detailed instructions.
 
+=======
+Initial setup for assignment 5
+>>>>>>> b4d647d (test1 commit with README)
